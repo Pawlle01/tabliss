@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import { Props, defaultData } from "./types";
+import "./Video.sass";
 
 const Video: React.FC<Props> = ({ data = defaultData }) => {
   const { videos = [], delay = 10000, loop = true } = data;
