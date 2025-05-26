@@ -1,13 +1,13 @@
 {
   "manifest_version": 2,
-  "name": "Tabliss",
+  "name": "Tabliss, Pawle",
   "short_name": "Tabliss",
-  "version": "2.6.0",
-  "description": "A beautiful New Tab page with many customisable backgrounds and widgets that does not require any permissions.",
+  "version": "2.7.0",
+  "description": "A beautiful New Tab page with many customisable backgrounds and widgets that does not require any permissions. Now with video slideshow capabilities!",
   "applications": {
     "gecko": {
-      "id": "extension@tabliss.io",
-      "strict_min_version": "54.0"
+      "id": "galler.business@gmail.com",
+      "strict_min_version": "58.0"
     }
   },
   "chrome_settings_overrides": {
