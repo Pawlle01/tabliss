@@ -45,16 +45,10 @@ export interface WidgetDisplay {
   position: WidgetPosition;
 }
 
-export type WidgetPosition =
-  | "topLeft"
-  | "topCentre"
-  | "topRight"
-  | "middleLeft"
-  | "middleCentre"
-  | "middleRight"
-  | "bottomLeft"
-  | "bottomCentre"
-  | "bottomRight";
+export type WidgetPosition = {
+  x: number;
+  y: number;
+};
 
 // Init data for the store
 const initData: State = {
@@ -71,7 +65,7 @@ const initData: State = {
     key: "widget/time",
     order: 0,
     display: {
-      position: "middleCentre",
+      position: {x: 200, y:200},
     },
   },
   "widget/default-greeting": {
@@ -79,7 +73,7 @@ const initData: State = {
     key: "widget/greeting",
     order: 1,
     display: {
-      position: "middleCentre",
+      position: {x: 200, y:200},
     },
   },
   focus: false,

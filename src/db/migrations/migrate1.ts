@@ -34,6 +34,7 @@ export type Version2Config = {
   locale?: string;
   timeZone?: string;
 };
+
 type BackgroundState = PluginState<BackgroundDisplay>;
 type WidgetState = PluginState<WidgetDisplay>;
 type PluginState<Display> = {
@@ -46,22 +47,25 @@ type BackgroundDisplay = {
   blur: number;
   luminosity: number;
 };
-type WidgetPosition =
-  | "topLeft"
-  | "topCentre"
-  | "topRight"
-  | "middleLeft"
-  | "middleCentre"
-  | "middleRight"
-  | "bottomLeft"
-  | "bottomCentre"
-  | "bottomRight";
 type WidgetDisplay = {
   colour?: string;
   fontFamily?: string;
   fontSize?: number;
   fontWeight?: number;
-  position: WidgetPosition;
+  position: { x: number; y: number };
+};
+
+// Map old position strings to numeric {x, y} pixel values
+const positionMap: Record<string, { x: number; y: number }> = {
+  topLeft: { x: 0, y: 32 },           // 2rem top margin
+  topCentre: { x: 400, y: 0 },        // 50% width approx (adjust if needed)
+  topRight: { x: 800, y: 0 },         // right aligned (assuming 800px width)
+  middleLeft: { x: 0, y: 300 },       // middle vertically ~300px
+  middleCentre: { x: 400, y: 300 },   // center of container approx
+  middleRight: { x: 800, y: 300 },
+  bottomLeft: { x: 0, y: 568 },       // bottom margin ~3rem (48px), assuming 600px height container
+  bottomCentre: { x: 400, y: 568 },
+  bottomRight: { x: 800, y: 568 },
 };
 
 export default function (input: Version1Config): Version2Config {
@@ -96,11 +100,16 @@ export default function (input: Version1Config): Version2Config {
     .filter(translateKey)
     .map((previousType) => {
       const id = generateId();
-      const key = translateKey(previousType) as string; // false is removed in filter
-      data[id] = translateData(
-        previousType,
-        input.storage[previousType],
-      ) as object;
+      const key = translateKey(previousType) as string; // false filtered out already
+      const storage = input.storage[previousType];
+
+      // Get old position string or default to middleCentre
+      const oldPosition: string = storage?.settings.position || "middleCentre";
+
+      // Map to new numeric position or fallback
+      const position = positionMap[oldPosition] || positionMap.middleCentre;
+
+      data[id] = translateData(previousType, storage) as object;
 
       return {
         id,
@@ -108,7 +117,7 @@ export default function (input: Version1Config): Version2Config {
         active: true,
         display: {
           ...fontDisplay,
-          position: "middleCentre",
+          position,
         },
       };
     });

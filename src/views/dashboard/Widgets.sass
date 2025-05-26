@@ -1,21 +1,24 @@
 .Widgets
-    padding: 0
-    text-align: center
-    pointer-events: none
+  padding: 0
+  text-align: center
+  pointer-events: none
 
-    .container
-        position: relative
-        width: 100%
-        height: 100%
+  .container
+    position: relative
+    width: 100%
+    height: 100%
 
-        .Slot > *
-            margin: 1rem
-            pointer-events: all
+    > *
+      /* Remove margin for precise positioning */
+      margin: 0
+      pointer-events: all
+      /* Prevent accidental text selection while dragging/moving */
+      user-select: none
 
+  h1, h2, h3, h4
+    line-height: 1
+    margin: 0
+
+  .weight-override
     h1, h2, h3, h4
-        line-height: 1
-        margin: 0
-
-    .weight-override
-        h1, h2, h3, h4
-            font-weight: inherit
+      font-weight: inherit

@@ -11,10 +11,17 @@ type Props = {
 };
 
 const Slot: React.FC<Props> = ({ position, widgets }) => (
-  <div className={`Slot ${position}`}>
-    {widgets.map(({ display, id, key }) => (
-      <Widget key={id} {...display}>
-        <Plugin id={id} component={getConfig(key).dashboardComponent} />
+  <div
+    className="Slot"
+    style={{
+      position: "absolute",
+      left: position.x,
+      top: position.y,
+    }}
+  >
+    {widgets.map((widget) => (
+      <Widget key={widget.id} plugin={widget} readonly>
+        <Plugin id={widget.id} component={getConfig(widget.key).dashboardComponent} />
       </Widget>
     ))}
   </div>
