@@ -2,7 +2,7 @@ import React from "react";
 import { defineMessages } from "react-intl";
 import { ErrorContext } from "../../contexts/error";
 import { UiContext } from "../../contexts/ui";
-import { toggleFocus } from "../../db/action";
+import { toggleFocus, toggleLock } from "../../db/action";
 import { db } from "../../db/state";
 import { useFormatMessages, useFullscreen, useKeyPress } from "../../hooks";
 import { useValue } from "../../lib/db/react";
@@ -25,6 +25,11 @@ const messages = defineMessages({
     defaultMessage: "Toggle fullscreen",
     description: "Hover hint text for the fullscreen toggle",
   },
+  lockHint: {
+    id: "dashboard.lockHint",
+    defaultMessage: "Toggle widget lock",
+    description: "Hover hint text for the lock toggle",
+  },
   loadingHint: {
     id: "dashboard.loadingHint",
     defaultMessage: "Loading new content",
@@ -41,6 +46,7 @@ const messages = defineMessages({
 const Overlay: React.FC = () => {
   const translated = useFormatMessages(messages);
   const focus = useValue(db, "focus");
+  const isLock = useValue(db, "lock");
   const { errors } = React.useContext(ErrorContext);
   const { pending, toggleErrors, toggleSettings } = React.useContext(UiContext);
 
@@ -76,6 +82,16 @@ const Overlay: React.FC = () => {
       >
         <Icon name={focus ? "eye-off" : "eye"} />
       </a>
+
+      {toggleLock ? (
+        <a
+          className="on-hover"
+          onClick={toggleLock}
+          title={`${translated.lockHint}`}
+        >
+          <Icon name={isLock ? "lock" : "unlock"} />
+        </a>
+      ) : null}
 
       {handleToggleFullscreen ? (
         <a

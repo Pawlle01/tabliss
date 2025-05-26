@@ -13,6 +13,8 @@ export interface State {
   [key: `data/${string}`]: unknown;
   /** Whether focus has been activated */
   focus: boolean;
+  /** Whether lock has been activated */
+  lock: boolean;
   /** Locale selected */
   locale: string;
   /** Time zone selected, if any */
@@ -77,6 +79,7 @@ const initData: State = {
     },
   },
   focus: false,
+  lock: true,
   locale: defaultLocale,
   timeZone: null,
 };

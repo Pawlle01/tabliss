@@ -16,3 +16,17 @@
   display: flex;
   flex-direction: column;
 }
+
+/* Remove number input spinners */
+
+/* Chrome, Safari, Edge, Opera */
+.position-coordinates input::-webkit-outer-spin-button,
+.position-coordinates input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+.position-coordinates input[type="number"] {
+  -moz-appearance: textfield;
+}

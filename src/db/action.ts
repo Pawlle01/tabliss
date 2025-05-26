@@ -72,6 +72,12 @@ export const toggleFocus = () => {
   DB.put(db, "focus", !DB.get(db, "focus"));
 };
 
+/** Toggle widget lock mode */
+export const toggleLock = () => {
+  DB.put(db, "lock", !DB.get(db, "lock"));
+};
+
+
 // Store actions
 
 /** Import database from a dump */
